@@ -1,7 +1,7 @@
 module "keypair" {
+  count        = var.keypair_module ? 1 : 0
   source       = "./keypair"
   project_name = var.project_name
-  count        = var.keypair_module ? 1 : 0
 }
 
 module "ec2" {
@@ -13,9 +13,11 @@ module "ec2" {
   ec2_config   = var.ec2_config
 }
 
-resource "aws_eip" "lb" {
-  instance = module.ec2[0].instance_ids[var.eip_instance_name]
-  vpc      = true
+module "eip" {
+  source  = "./eip"
+  eip_new = var.eip_new
+  ec2_id  = module.ec2[0].instance_ids[var.eip_instance_name]
+  eip_id  = var.eip_id
 }
 
 output "instance_ids" {
@@ -23,5 +25,9 @@ output "instance_ids" {
 }
 
 output "public_ip" {
-  value = resource.aws_eip.lb.public_dns
+  value = module.eip.public_ip
+}
+
+output "elastic_ip_id" {
+  value = module.eip.elastic_ip_id
 }

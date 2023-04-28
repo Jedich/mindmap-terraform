@@ -46,6 +46,17 @@ variable "ec2_module" {
   default = true
 }
 
+
 variable "eip_instance_name" {
   type = string
+}
+
+variable "eip_id" {
+  type = string
+  default = ""
+}
+
+variable "eip_new" {
+  type    = bool
+  default = true
 }
