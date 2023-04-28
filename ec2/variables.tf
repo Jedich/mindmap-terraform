@@ -1,5 +1,10 @@
 variable "keypair" {}
 
+variable "key_name" {
+  type = string
+  default = "key"
+}
+
 variable "project_name" {
   type    = string
   default = "default-project"

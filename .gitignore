@@ -1,4 +1,5 @@
 output/
+input/
 user_data/init
 
 # Local .terraform directories

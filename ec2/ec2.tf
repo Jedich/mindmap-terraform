@@ -3,7 +3,7 @@ resource "aws_instance" "instance" {
   ami               = var.amis[each.value.region]
   instance_type     = each.value.instance_type
   availability_zone = each.value.availability_zone
-  key_name          = var.keypair != null ? var.keypair.public_key.key_name : ""
+  key_name          = var.key_name
   security_groups   = [module.sg[each.key].security_group]
   tags = {
     Name = "${var.project_name}-${each.key}-${terraform.workspace}"

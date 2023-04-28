@@ -7,6 +7,7 @@ module "keypair" {
 module "ec2" {
   count        = var.ec2_module ? 1 : 0
   source       = "./ec2"
+  key_name     = "${var.project_name}-${terraform.workspace}"
   project_name = var.project_name
   keypair      = var.keypair_module ? module.keypair[0].generated_key : null
   amis         = var.amis
